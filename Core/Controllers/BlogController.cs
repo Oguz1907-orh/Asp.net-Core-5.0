@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,8 +9,10 @@ using System.Threading.Tasks;
 
 namespace Core.Controllers
 {
+    [AllowAnonymous]
     public class BlogController : Controller
     {
+        
         BlogManager bm = new BlogManager(new EfBlogRepository());
         public IActionResult Index()
         {
@@ -22,5 +25,11 @@ namespace Core.Controllers
             var values = bm.GetBlogById(id);
             return View(values);
         }
+        public IActionResult BlogListByWriter()
+        {
+            var values = bm.GetBlogListyByWriter(1);
+            return View(values);
+        }
+        
     }
 }
