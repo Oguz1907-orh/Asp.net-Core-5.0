@@ -23,18 +23,18 @@
     </tr>
     @foreach(var item in Model)
     {
-      <tr>
+<tr>
     <td>@item.BlogId</td>
     <td>@item.BlogTitle</td>
-    <td>@item.BlogCreateDate</td>
-    <td>@item.CategoryId</td>
-    <td>@item.BlogStatus</td>
+    <td>@(((DateTime)item.BlogCreateDate).ToString("dd-MMM-yyyyy"))</td>
+    <td>@item.Category.CategoryName</td>
+    <td>@Html.Raw(item.BlogStatus ? "<label class='badge badge-success'>Aktif</label>" : "<label class='badge badge-danger'>Pasif</label>")</td>
 
-    <td><a href="#" class="btn btn-danger">Sil</a></td>
-    <td><a href="#" class="btn btn-warning">Düzenle</a></td>
-      </tr>
-                
+    <td><a href="/Blog/DeleteBlog/@item.BlogId" class="btn btn-primary" onclick="return confirm('Silmek istediğinizden eminmisiniz?');">Sil</a></td>
 
+    <td><a href="/Blog/EditBlog/@item.BlogId" class="btn btn-warning">Düzenle</a></td>
+</tr>
+  
     }
 </table>
-<a href="#" class="btn btn-outline-primary">Yeni Blog Oluştur</a>
+<a href="/Blog/BlogAdd" class="btn btn-outline-primary">Yeni Blog Oluştur</a>
